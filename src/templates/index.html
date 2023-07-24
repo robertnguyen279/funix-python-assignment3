@@ -1,0 +1,20 @@
+{% extends 'base.html'%} {% block content %}
+<main>
+  <section class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4 text-center">Todo tracker</h1>
+      <p class="lead text-center">A simple todo app to check your progress!</p>
+    </div>
+  </section>
+  <section class="container mt-5">
+    <div class="alert alert-primary" role="alert">
+      In order to use the app use must login!
+    </div>
+  </section>
+  <section class="container">
+    <button type="button" class="btn btn-primary">Login</button>
+    or
+    <button type="button" class="btn btn-secondary">Register</button>
+  </section>
+</main>
+{% endblock %}
