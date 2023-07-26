@@ -2,11 +2,23 @@
 <main>
   <section class="jumbotron jumbotron-fluid">
     <div class="container">
-      <h1 class="display-4 text-center">Register</h1>
+      <h1 class="display-4 text-center">Login</h1>
     </div>
   </section>
   <section class="container">
-    <form method="POST"></form>
+    <form method="POST" class="form-wrapper">
+      {{ form.hidden_tag() }}
+      <!-- Username -->
+      <div class="form-group">
+        {{form.username.label}} {{form.username(class_="form-control")}}
+      </div>
+      <!-- Password -->
+      <div class="form-group">
+        {{form.password.label}} {{form.password(class_="form-control")}}
+      </div>
+      <!-- Submit -->
+      {{form.submit(class_="btn btn-primary")}}
+    </form>
   </section>
 </main>
 {% endblock %}
