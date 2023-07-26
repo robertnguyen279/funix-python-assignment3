@@ -12,9 +12,13 @@
     </div>
   </section>
   <section class="container">
-    <button type="button" class="btn btn-primary">Login</button>
+    <a href="{{url_for('routes.register')}}"
+      ><button type="button" class="btn btn-primary">Login</button></a
+    >
     or
-    <button type="button" class="btn btn-secondary">Register</button>
+    <a href="{{url_for('routes.register')}}"
+      ><button type="button" class="btn btn-secondary">Register</button></a
+    >
   </section>
 </main>
 {% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html'%} {% block content %}
+<main>
+  <section class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4 text-center">Register</h1>
+    </div>
+  </section>
+  <section class="container">
+    <form method="POST" class="form-wrapper">
+      {{form.hidden_tag()}}
+      <!-- Email -->
+      <div class="form-group">
+        {{form.email.label}} {{form.email(class_="form-control")}}
+        <!-- Show last error -->
+        {% if form.email.errors %}
+        <span class="text-error">{{ form.email.errors[-1] }}</span>
+        {% endif %}
+      </div>
+      <!-- Username -->
+      <div class="form-group">
+        {{form.username.label}} {{form.username(class_="form-control")}}
+        <!-- Show last error -->
+        {% if form.username.errors %}
+        <span class="text-error">{{ form.username.errors[-1] }}</span>
+        {% endif %}
+      </div>
+      <!-- Password -->
+      <div class="form-group">
+        {{form.password.label}} {{form.password(class_="form-control")}}
+        <!-- Show last error -->
+        {% if form.password.errors %}
+        <span class="text-error">{{ form.password.errors[-1] }}</span>
+        {% endif %}
+      </div>
+      <!-- Confirm Password -->
+      <div class="form-group">
+        {{form.pass_confirm.label}} {{form.pass_confirm(class_="form-control")}}
+        <!-- Show last error -->
+        {% if form.pass_confirm.errors %}
+        <span class="text-error">{{ form.pass_confirm.errors[-1] }}</span>
+        {% endif %}
+      </div>
+      <!-- Flash messages -->
+      {% if get_flashed_messages() %}
+      <div class="alert alert-danger" role="alert">
+        {{ get_flashed_messages()[-1] }}
+      </div>
+      {% endif %}
+
+      <!-- Submit -->
+      {{form.submit(class_="btn btn-primary")}}
+    </form>
+  </section>
+</main>
+{% endblock %}

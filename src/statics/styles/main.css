@@ -8,6 +8,16 @@ main {
   min-height: 50rem;
 }
 
+.form-wrapper {
+  width: 30rem;
+  margin: auto;
+}
+
+.text-error {
+  color: red;
+  font-size: 0.9rem;
+}
+
 .navbar .navbar-brand {
   display: flex;
   align-items: center;
