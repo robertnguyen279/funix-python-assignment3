@@ -25,6 +25,9 @@ main {
 .navbar .navbar-brand .logo img {
   width: 3rem;
 }
+.navbar .log-out img {
+  width: 1.5rem;
+}
 
 footer {
   background-color: #f8f9fa !important;

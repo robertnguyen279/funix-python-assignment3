@@ -2,19 +2,27 @@
 <main>
   <section class="jumbotron jumbotron-fluid">
     <div class="container">
-      <h1 class="display-4 text-center">Login</h1>
+      <h1 class="display-4 text-center">Add a todo</h1>
     </div>
   </section>
   <section class="container">
     <form method="POST" class="form-wrapper">
-      {{ form.hidden_tag() }}
-      <!-- Username -->
+      {{form.hidden_tag()}}
+      <!-- Category -->
       <div class="form-group">
-        {{form.username.label}} {{form.username(class_="form-control")}}
+        {{form.category.label}} {{form.category(class_="form-control")}}
+        <!-- Show last error -->
+        {% if form.category.errors %}
+        <span class="text-error">{{ form.category.errors[-1] }}</span>
+        {% endif %}
       </div>
-      <!-- Password -->
+      <!-- Description -->
       <div class="form-group">
-        {{form.password.label}} {{form.password(class_="form-control")}}
+        {{form.description.label}} {{form.description(class_="form-control")}}
+        <!-- Show last error -->
+        {% if form.description.errors %}
+        <span class="text-error">{{ form.description.errors[-1] }}</span>
+        {% endif %}
       </div>
       <!-- Flash messages -->
       {% if get_flashed_messages() %}
@@ -22,6 +30,7 @@
         {{ get_flashed_messages()[-1] }}
       </div>
       {% endif %}
+
       <!-- Submit -->
       {{form.submit(class_="btn btn-primary")}}
     </form>

@@ -14,17 +14,34 @@
               >Home <span class="sr-only">(current)</span></a
             >
           </li>
-          <li {% if request_path == '/register' %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
-            <a class="nav-link" href="{{url_for('routes.register')}}"
-              >Register <span class="sr-only">(current)</span></a
-            >
-          </li>
-          <li {% if request_path == '/login' %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
-            <a class="nav-link" href="{{url_for('routes.login')}}"
-              >Login <span class="sr-only">(current)</span></a
-            >
-          </li>
-         
+          {% if current_user.is_authenticated %}
+            <li {% if request_path == '/add' %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+              <a class="nav-link" href="{{url_for('routes.add_todo')}}"
+                >Add<span class="sr-only">(current)</span></a
+              >
+            </li>
+            <li {% if request_path == '/manage' %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+              <a class="nav-link" href="{{url_for('routes.manage_todo')}}"
+                >Manage<span class="sr-only">(current)</span></a
+              >
+            </li>
+            <li {% if request_path == '/login' %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+              <a class="nav-link log-out" href="{{url_for('routes.logout')}}"
+                >Log out <img src="/statics/icons/log-out.svg" alt="log-out"><span class="sr-only">(current)</span></a
+              >
+            </li>
+          {% else %}
+            <li {% if request_path == '/register' %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+              <a class="nav-link" href="{{url_for('routes.register')}}"
+                >Register <span class="sr-only">(current)</span></a
+              >
+            </li>
+            <li {% if request_path == '/login' %} class="nav-item active" {% else %} class="nav-item" {% endif %}>
+              <a class="nav-link" href="{{url_for('routes.login')}}"
+                >Login <span class="sr-only">(current)</span></a
+              >
+            </li>
+          {% endif %}
       </div>
     </div>
   </nav>

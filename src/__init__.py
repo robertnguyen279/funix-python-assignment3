@@ -1,5 +1,5 @@
 import os
-from flask import Flask
+from flask import Flask, render_template
 from src.routes import routes_page
 from src.models import login_manager
 from flask_migrate import Migrate
@@ -19,6 +19,12 @@ Migrate(app,db)
 
 login_manager.init_app(app)
 
-login_manager.login_view = "login"
+login_manager.login_view = "routes.login"
 
 app.register_blueprint(routes_page)
+
+# Register 404 page
+@app.errorhandler(404)
+def page_not_found(e):
+    # Note that we set the 404 status explicitly
+    return render_template('404.html'), 404

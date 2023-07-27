@@ -1,0 +1,31 @@
+{% extends 'base.html'%} {% block content %}
+<main>
+  <section class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4 text-center">Add a todo</h1>
+    </div>
+  </section>
+  <section class="container">
+    <form method="POST" class="form-wrapper">
+      {{form.hidden_tag()}}
+      <!-- Category -->
+      <div class="form-group">
+        {{form.category.label}} {{form.category(class_="form-control",
+        value=todo.category)}}
+      </div>
+      <!-- Status -->
+      <div class="form-group">
+        {{form.status.label}} {{form.status(class_="form-control")}}
+      </div>
+      <!-- Description -->
+      <div class="form-group">
+        {{form.description.label}} {{form.description(class_="form-control",
+        placeholder=todo.description)}}
+      </div>
+
+      <!-- Submit -->
+      {{form.submit(class_="btn btn-primary")}}
+    </form>
+  </section>
+</main>
+{% endblock %}
