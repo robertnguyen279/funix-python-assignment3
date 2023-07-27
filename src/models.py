@@ -60,4 +60,12 @@ class Todo(db.Model, UserMixin):
     def delete(self):
         db.session.delete(self)
         db.session.commit()
+    
+    def json(self):
+        return {
+            "category": self.category,
+            "description": self.description,
+            "status": self.status,
+            "date_created": self.date_created
+        }
 

@@ -3,6 +3,11 @@ from src.forms import RegistrationForm, LoginForm, AddTodoForm, EditTodoForm
 from src.models import User, Todo
 from sqlalchemy.exc import SQLAlchemyError
 from flask_login import login_user,login_required,logout_user
+from flask_jwt_extended import create_access_token
+from flask_jwt_extended import get_jwt_identity
+from flask_jwt_extended import jwt_required
+from flask import request
+from flask import jsonify
 
 routes_page = Blueprint('routes', __name__, template_folder='templates')
 
@@ -103,6 +108,33 @@ def delete_todo(id):
     todo.delete()
     return redirect(url_for('routes.manage_todo', request_path=request.path))
 
+
+@routes_page.route("/login-jwt", methods=["POST"])
+def login_jwt():
+    username = request.json.get("username", None)
+    password = request.json.get("password", None)
+    user = User.query.filter_by(username=username).first()
+    if user is not None and user.check_password(password):
+        access_token = create_access_token(identity=username)
+        return jsonify(access_token=access_token)
+
+    else:
+        return jsonify({"Message": "Wrong username or password"}), 401
+
+# Protect a route with jwt_required, which will kick out requests without a valid JWT present.
+@routes_page.route("/todos", methods=["GET"])
+@jwt_required()
+def protected():
+    # Access the identity of the current user with get_jwt_identity
+    username = get_jwt_identity()
+    user = User.query.filter_by(username=username).first()
+    todos = Todo.query.filter_by(user_id=user.id).all()
+    if not todos:
+        return jsonify({"Message": "No todo found"}), 404
+    
+
+    formatted_todos = [todo.json() for todo in todos]
+    return formatted_todos, 200
 
 # Serve static files
 @routes_page.route('/statics/<path:path>')
