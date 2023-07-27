@@ -17,6 +17,7 @@ class User(db.Model, UserMixin):
     # Create a table in the db
     __tablename__ = 'users'
 
+    # Create column in the db
     id = db.Column(db.Integer, primary_key = True)
     email = db.Column(db.String(64), unique=True, index=True)
     username = db.Column(db.String(64), unique=True, index=True)
@@ -24,14 +25,17 @@ class User(db.Model, UserMixin):
     todos = db.relationship('Todo', backref='user', lazy='dynamic')
 
     def __init__(self, email, username, password):
+        """Init new user"""
         self.email = email
         self.username = username
         self.password_hash = generate_password_hash(password)
 
     def check_password(self,password):
+        """Check hash password"""
         return check_password_hash(self.password_hash,password)
     
     def save(self):
+        """Save user"""
         db.session.add(self)
         db.session.commit()
 
@@ -39,14 +43,16 @@ class Todo(db.Model, UserMixin):
 
     __table_name__ = 'todos'
 
+    # Create column in the db
     id = db.Column(db.Integer, primary_key=True)
-    category = db.Column(db.String(64), unique=True)
+    category = db.Column(db.String(64))
     description = db.Column(db.String(255))
     status = db.Column(db.String(64))
     date_created = db.Column(db.String(64))
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
     def __init__(self, category, description):
+        """Init new todos"""
         self.category = category
         self.description = description
         self.status = "pending"
@@ -54,14 +60,17 @@ class Todo(db.Model, UserMixin):
         self.user_id = current_user.id
     
     def save(self):
+        """Save todos"""
         db.session.add(self)
         db.session.commit()
     
     def delete(self):
+        """Delete todo"""
         db.session.delete(self)
         db.session.commit()
     
     def json(self):
+        """Return json format"""
         return {
             "category": self.category,
             "description": self.description,
